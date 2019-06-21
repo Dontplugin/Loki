@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.sinfulxx.loki.mapper.UsersMapper">
+  <resultMap id="BaseResultMap" type="top.sinfulxx.loki.pojo.Users">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="github_id" jdbcType="INTEGER" property="githubId" />
+    <result column="node_id" jdbcType="VARCHAR" property="nodeId" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="gravatar_id" jdbcType="VARCHAR" property="gravatarId" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="html_url" jdbcType="VARCHAR" property="htmlUrl" />
+    <result column="followers_url" jdbcType="VARCHAR" property="followersUrl" />
+    <result column="following_url" jdbcType="VARCHAR" property="followingUrl" />
+    <result column="gists_url" jdbcType="VARCHAR" property="gistsUrl" />
+    <result column="starred_url" jdbcType="VARCHAR" property="starredUrl" />
+    <result column="subscriptions_url" jdbcType="VARCHAR" property="subscriptionsUrl" />
+    <result column="organizations_url" jdbcType="VARCHAR" property="organizationsUrl" />
+    <result column="repos_url" jdbcType="VARCHAR" property="reposUrl" />
+    <result column="events_url" jdbcType="VARCHAR" property="eventsUrl" />
+    <result column="received_events_url" jdbcType="VARCHAR" property="receivedEventsUrl" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="site_admin" jdbcType="BIT" property="siteAdmin" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="blog" jdbcType="VARCHAR" property="blog" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="hireable" jdbcType="VARCHAR" property="hireable" />
+    <result column="bio" jdbcType="VARCHAR" property="bio" />
+    <result column="public_repos" jdbcType="INTEGER" property="publicRepos" />
+    <result column="public_gists" jdbcType="INTEGER" property="publicGists" />
+    <result column="followers" jdbcType="INTEGER" property="followers" />
+    <result column="following" jdbcType="INTEGER" property="following" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, user_name, github_id, node_id, avatar_url, gravatar_id, url, html_url, followers_url, 
+    following_url, gists_url, starred_url, subscriptions_url, organizations_url, repos_url, 
+    events_url, received_events_url, type, site_admin, name, company, blog, location, 
+    email, hireable, bio, public_repos, public_gists, followers, following, created_at, 
+    updated_at
+  </sql>
+  <select id="selectByExample" parameterType="top.sinfulxx.loki.pojo.UsersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from users
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from users
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="top.sinfulxx.loki.pojo.UsersExample">
+    delete from users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="top.sinfulxx.loki.pojo.Users">
+    insert into users (id, user_name, github_id, 
+      node_id, avatar_url, gravatar_id, 
+      url, html_url, followers_url, 
+      following_url, gists_url, starred_url, 
+      subscriptions_url, organizations_url, repos_url, 
+      events_url, received_events_url, type, 
+      site_admin, name, company, 
+      blog, location, email, 
+      hireable, bio, public_repos, 
+      public_gists, followers, following, 
+      created_at, updated_at)
+    values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{githubId,jdbcType=INTEGER}, 
+      #{nodeId,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, #{gravatarId,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{htmlUrl,jdbcType=VARCHAR}, #{followersUrl,jdbcType=VARCHAR}, 
+      #{followingUrl,jdbcType=VARCHAR}, #{gistsUrl,jdbcType=VARCHAR}, #{starredUrl,jdbcType=VARCHAR}, 
+      #{subscriptionsUrl,jdbcType=VARCHAR}, #{organizationsUrl,jdbcType=VARCHAR}, #{reposUrl,jdbcType=VARCHAR}, 
+      #{eventsUrl,jdbcType=VARCHAR}, #{receivedEventsUrl,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{siteAdmin,jdbcType=BIT}, #{name,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{blog,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{hireable,jdbcType=VARCHAR}, #{bio,jdbcType=VARCHAR}, #{publicRepos,jdbcType=INTEGER}, 
+      #{publicGists,jdbcType=INTEGER}, #{followers,jdbcType=INTEGER}, #{following,jdbcType=INTEGER}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="top.sinfulxx.loki.pojo.Users">
+    insert into users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="githubId != null">
+        github_id,
+      </if>
+      <if test="nodeId != null">
+        node_id,
+      </if>
+      <if test="avatarUrl != null">
+        avatar_url,
+      </if>
+      <if test="gravatarId != null">
+        gravatar_id,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="htmlUrl != null">
+        html_url,
+      </if>
+      <if test="followersUrl != null">
+        followers_url,
+      </if>
+      <if test="followingUrl != null">
+        following_url,
+      </if>
+      <if test="gistsUrl != null">
+        gists_url,
+      </if>
+      <if test="starredUrl != null">
+        starred_url,
+      </if>
+      <if test="subscriptionsUrl != null">
+        subscriptions_url,
+      </if>
+      <if test="organizationsUrl != null">
+        organizations_url,
+      </if>
+      <if test="reposUrl != null">
+        repos_url,
+      </if>
+      <if test="eventsUrl != null">
+        events_url,
+      </if>
+      <if test="receivedEventsUrl != null">
+        received_events_url,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="siteAdmin != null">
+        site_admin,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="blog != null">
+        blog,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="hireable != null">
+        hireable,
+      </if>
+      <if test="bio != null">
+        bio,
+      </if>
+      <if test="publicRepos != null">
+        public_repos,
+      </if>
+      <if test="publicGists != null">
+        public_gists,
+      </if>
+      <if test="followers != null">
+        followers,
+      </if>
+      <if test="following != null">
+        following,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="githubId != null">
+        #{githubId,jdbcType=INTEGER},
+      </if>
+      <if test="nodeId != null">
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gravatarId != null">
+        #{gravatarId,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="htmlUrl != null">
+        #{htmlUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="followersUrl != null">
+        #{followersUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="followingUrl != null">
+        #{followingUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gistsUrl != null">
+        #{gistsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="starredUrl != null">
+        #{starredUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="subscriptionsUrl != null">
+        #{subscriptionsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationsUrl != null">
+        #{organizationsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="reposUrl != null">
+        #{reposUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="eventsUrl != null">
+        #{eventsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="receivedEventsUrl != null">
+        #{receivedEventsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="siteAdmin != null">
+        #{siteAdmin,jdbcType=BIT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="blog != null">
+        #{blog,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="hireable != null">
+        #{hireable,jdbcType=VARCHAR},
+      </if>
+      <if test="bio != null">
+        #{bio,jdbcType=VARCHAR},
+      </if>
+      <if test="publicRepos != null">
+        #{publicRepos,jdbcType=INTEGER},
+      </if>
+      <if test="publicGists != null">
+        #{publicGists,jdbcType=INTEGER},
+      </if>
+      <if test="followers != null">
+        #{followers,jdbcType=INTEGER},
+      </if>
+      <if test="following != null">
+        #{following,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="top.sinfulxx.loki.pojo.UsersExample" resultType="java.lang.Long">
+    select count(*) from users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update users
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.githubId != null">
+        github_id = #{record.githubId,jdbcType=INTEGER},
+      </if>
+      <if test="record.nodeId != null">
+        node_id = #{record.nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatarUrl != null">
+        avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gravatarId != null">
+        gravatar_id = #{record.gravatarId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null">
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.htmlUrl != null">
+        html_url = #{record.htmlUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.followersUrl != null">
+        followers_url = #{record.followersUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.followingUrl != null">
+        following_url = #{record.followingUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gistsUrl != null">
+        gists_url = #{record.gistsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.starredUrl != null">
+        starred_url = #{record.starredUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subscriptionsUrl != null">
+        subscriptions_url = #{record.subscriptionsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.organizationsUrl != null">
+        organizations_url = #{record.organizationsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reposUrl != null">
+        repos_url = #{record.reposUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eventsUrl != null">
+        events_url = #{record.eventsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receivedEventsUrl != null">
+        received_events_url = #{record.receivedEventsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.siteAdmin != null">
+        site_admin = #{record.siteAdmin,jdbcType=BIT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blog != null">
+        blog = #{record.blog,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null">
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hireable != null">
+        hireable = #{record.hireable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bio != null">
+        bio = #{record.bio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publicRepos != null">
+        public_repos = #{record.publicRepos,jdbcType=INTEGER},
+      </if>
+      <if test="record.publicGists != null">
+        public_gists = #{record.publicGists,jdbcType=INTEGER},
+      </if>
+      <if test="record.followers != null">
+        followers = #{record.followers,jdbcType=INTEGER},
+      </if>
+      <if test="record.following != null">
+        following = #{record.following,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update users
+    set id = #{record.id,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      github_id = #{record.githubId,jdbcType=INTEGER},
+      node_id = #{record.nodeId,jdbcType=VARCHAR},
+      avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      gravatar_id = #{record.gravatarId,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      html_url = #{record.htmlUrl,jdbcType=VARCHAR},
+      followers_url = #{record.followersUrl,jdbcType=VARCHAR},
+      following_url = #{record.followingUrl,jdbcType=VARCHAR},
+      gists_url = #{record.gistsUrl,jdbcType=VARCHAR},
+      starred_url = #{record.starredUrl,jdbcType=VARCHAR},
+      subscriptions_url = #{record.subscriptionsUrl,jdbcType=VARCHAR},
+      organizations_url = #{record.organizationsUrl,jdbcType=VARCHAR},
+      repos_url = #{record.reposUrl,jdbcType=VARCHAR},
+      events_url = #{record.eventsUrl,jdbcType=VARCHAR},
+      received_events_url = #{record.receivedEventsUrl,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      site_admin = #{record.siteAdmin,jdbcType=BIT},
+      name = #{record.name,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      blog = #{record.blog,jdbcType=VARCHAR},
+      location = #{record.location,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      hireable = #{record.hireable,jdbcType=VARCHAR},
+      bio = #{record.bio,jdbcType=VARCHAR},
+      public_repos = #{record.publicRepos,jdbcType=INTEGER},
+      public_gists = #{record.publicGists,jdbcType=INTEGER},
+      followers = #{record.followers,jdbcType=INTEGER},
+      following = #{record.following,jdbcType=INTEGER},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="top.sinfulxx.loki.pojo.Users">
+    update users
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="githubId != null">
+        github_id = #{githubId,jdbcType=INTEGER},
+      </if>
+      <if test="nodeId != null">
+        node_id = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gravatarId != null">
+        gravatar_id = #{gravatarId,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="htmlUrl != null">
+        html_url = #{htmlUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="followersUrl != null">
+        followers_url = #{followersUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="followingUrl != null">
+        following_url = #{followingUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gistsUrl != null">
+        gists_url = #{gistsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="starredUrl != null">
+        starred_url = #{starredUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="subscriptionsUrl != null">
+        subscriptions_url = #{subscriptionsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationsUrl != null">
+        organizations_url = #{organizationsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="reposUrl != null">
+        repos_url = #{reposUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="eventsUrl != null">
+        events_url = #{eventsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="receivedEventsUrl != null">
+        received_events_url = #{receivedEventsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="siteAdmin != null">
+        site_admin = #{siteAdmin,jdbcType=BIT},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="blog != null">
+        blog = #{blog,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="hireable != null">
+        hireable = #{hireable,jdbcType=VARCHAR},
+      </if>
+      <if test="bio != null">
+        bio = #{bio,jdbcType=VARCHAR},
+      </if>
+      <if test="publicRepos != null">
+        public_repos = #{publicRepos,jdbcType=INTEGER},
+      </if>
+      <if test="publicGists != null">
+        public_gists = #{publicGists,jdbcType=INTEGER},
+      </if>
+      <if test="followers != null">
+        followers = #{followers,jdbcType=INTEGER},
+      </if>
+      <if test="following != null">
+        following = #{following,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="top.sinfulxx.loki.pojo.Users">
+    update users
+    set user_name = #{userName,jdbcType=VARCHAR},
+      github_id = #{githubId,jdbcType=INTEGER},
+      node_id = #{nodeId,jdbcType=VARCHAR},
+      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      gravatar_id = #{gravatarId,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      html_url = #{htmlUrl,jdbcType=VARCHAR},
+      followers_url = #{followersUrl,jdbcType=VARCHAR},
+      following_url = #{followingUrl,jdbcType=VARCHAR},
+      gists_url = #{gistsUrl,jdbcType=VARCHAR},
+      starred_url = #{starredUrl,jdbcType=VARCHAR},
+      subscriptions_url = #{subscriptionsUrl,jdbcType=VARCHAR},
+      organizations_url = #{organizationsUrl,jdbcType=VARCHAR},
+      repos_url = #{reposUrl,jdbcType=VARCHAR},
+      events_url = #{eventsUrl,jdbcType=VARCHAR},
+      received_events_url = #{receivedEventsUrl,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      site_admin = #{siteAdmin,jdbcType=BIT},
+      name = #{name,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      blog = #{blog,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      hireable = #{hireable,jdbcType=VARCHAR},
+      bio = #{bio,jdbcType=VARCHAR},
+      public_repos = #{publicRepos,jdbcType=INTEGER},
+      public_gists = #{publicGists,jdbcType=INTEGER},
+      followers = #{followers,jdbcType=INTEGER},
+      following = #{following,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{updatedAt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

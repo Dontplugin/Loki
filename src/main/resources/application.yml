@@ -1,0 +1,31 @@
+##端口号
+server:
+  port: 8080
+
+github:
+  clientId: f8d52cbce204df95aae1
+  clientSecret: 5cf4150d7458d734be6b0f534d17c7f37d5ab2a3
+
+##去除thymeleaf的html严格校验
+spring:
+  datasource:
+    url: jdbc:mysql://94.191.6.241:3306/loki?useUnicode=true&characterEncoding=gbk&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+  session:
+    store-type: redis
+  thymeleaf:
+    mode: LEGACYHTML5
+    prefix: classpath:/templates/ #设定thymeleaf文件路径 默认为src/main/resources/templates
+    cache: false # 是否开启模板缓存，默认true 建议在开发时关闭缓存,不然没法看到实时页面
+    encoding: UTF-8 # 模板编码
+  mvc:
+    static-path-pattern: /static/** #设定静态文件路径，js,css等
+
+
+mybatis:
+  type-aliasesPackage: top.sinfulxx.loki.pojo
+  mapperLocations: classpath:mapper/*.xml
+
+
