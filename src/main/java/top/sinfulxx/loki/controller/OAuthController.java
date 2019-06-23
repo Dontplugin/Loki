@@ -9,10 +9,15 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
+import top.sinfulxx.loki.common.Constant;
 import top.sinfulxx.loki.common.OhMyHttpUtils;
 import top.sinfulxx.loki.pojo.GithubUsersVO;
 import top.sinfulxx.loki.service.UserService;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -42,7 +47,7 @@ public class OAuthController {
      * @return
      */
     @RequestMapping("/redirect")
-    public String redirect(@RequestParam("code") String code) {
+    public String redirect(@RequestParam("code") String code, HttpServletResponse response) {
         Map<String, String> param = new ImmutableMap.Builder<String, String>()
                 .put("client_id", clientId)
                 .put("client_secret", clientSecret)
@@ -58,8 +63,16 @@ public class OAuthController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         headers.add("Authorization", "token " + accessToken);
-        GithubUsersVO githubUsersVO = ohMyHttpUtils.get("https://api.github.com/user", null, headers, GithubUsersVO.class);
-        userService.userLogin(githubUsersVO);
-        return "ok";
+        GithubUsersVO githubUsersVO = null;
+        try {
+            githubUsersVO = ohMyHttpUtils.get("https://api.github.com/user", null, headers, GithubUsersVO.class);
+        } catch (HttpClientErrorException e) {
+            log.error(e.getMessage());
+        }
+        String token = userService.userLogin(githubUsersVO);
+        Cookie c1 = new Cookie(Constant.SECURITY_TOKEN, token);
+        c1.setPath("/");
+        response.addCookie(c1);
+        return "index";
     }
 }

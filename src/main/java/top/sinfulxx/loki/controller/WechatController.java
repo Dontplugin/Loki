@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 微信开发者认证token
+ *
  * @author hanyuzhe
  * @date 2019/6/20 下午4:11
  * @since 1.0

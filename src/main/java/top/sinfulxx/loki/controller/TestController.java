@@ -1,11 +1,13 @@
 package top.sinfulxx.loki.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.sinfulxx.loki.common.RedisClient;
+import top.sinfulxx.loki.pojo.Users;
 
 /**
  * @author hanyuzhe
@@ -23,11 +25,13 @@ public class TestController {
 
     @RequestMapping("/redis")
     public String redis(@RequestParam("param") String param) {
-        String s = redisClient.get("ok");
-        if (StringUtils.isEmpty(s)) {
-            redisClient.set("ok", param);
-        }
+        Users users = new Users();
+        users.setUserName("ok");
+        users.setId("hweq1");
 
+        redisClient.set("test", users);
+        Users test = redisClient.get("test", Users.class);
+        System.out.println(JSONObject.toJSONString(test));
         return "ok";
     }
 }

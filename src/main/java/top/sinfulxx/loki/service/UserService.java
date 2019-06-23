@@ -1,6 +1,5 @@
 package top.sinfulxx.loki.service;
 
-import com.alibaba.fastjson.JSONObject;
 import top.sinfulxx.loki.pojo.GithubUsersVO;
 
 /**
@@ -9,5 +8,11 @@ import top.sinfulxx.loki.pojo.GithubUsersVO;
  * @since 1.0
  */
 public interface UserService {
-    void userLogin(GithubUsersVO githubUsersVO);
+
+    /**
+     * 登录用户逻辑
+     * @param githubUsersVO
+     * @return 返回一个token
+     */
+    String userLogin(GithubUsersVO githubUsersVO);
 }

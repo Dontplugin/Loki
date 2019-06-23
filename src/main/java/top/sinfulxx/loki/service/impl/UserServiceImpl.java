@@ -1,12 +1,13 @@
 package top.sinfulxx.loki.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import top.sinfulxx.loki.common.UUIDUtil;
+import top.sinfulxx.loki.common.sso.BuildTokenUtil;
+import top.sinfulxx.loki.common.sso.UserContextHandler;
 import top.sinfulxx.loki.mapper.UsersMapper;
 import top.sinfulxx.loki.pojo.GithubUsersVO;
 import top.sinfulxx.loki.pojo.Users;
@@ -14,7 +15,6 @@ import top.sinfulxx.loki.pojo.UsersExample;
 import top.sinfulxx.loki.service.UserService;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author hanyuzhe
@@ -30,12 +30,11 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void userLogin(GithubUsersVO githubUsersVO) {
+    public String userLogin(GithubUsersVO githubUsersVO) {
         Users users = getUserFromJson(githubUsersVO);
         UsersExample example = new UsersExample();
         if (users == null)
-            return;
-
+            return null;
 
         example.createCriteria().andGithubIdEqualTo(users.getGithubId());
         List<Users> usersList = usersMapper.selectByExample(example);
@@ -50,20 +49,11 @@ public class UserServiceImpl implements UserService {
         }
 
 
-        // todo 注册一个登录信息，返回当前服务器的token信息
-        setSession(users);
-
-        // todo 记录登录信息
-        recordLoginInfo(users);
+        // 注册一个登录信息，返回当前服务器的token信息
+        UserContextHandler.setUser(users);
+        return BuildTokenUtil.generateSid(users.getId());
     }
 
-    private void setSession(Users users) {
-
-    }
-
-    private void recordLoginInfo(Users users) {
-
-    }
 
     private Users getUserFromJson(GithubUsersVO githubUsersVO) {
         Users user = new Users();
