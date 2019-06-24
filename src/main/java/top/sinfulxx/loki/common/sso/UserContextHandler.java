@@ -1,8 +1,7 @@
 package top.sinfulxx.loki.common.sso;
 
-import org.apache.catalina.User;
 import top.sinfulxx.loki.common.Constant;
-import top.sinfulxx.loki.pojo.Users;
+import top.sinfulxx.loki.model.entity.Users;
 
 import java.util.HashMap;
 import java.util.Map;

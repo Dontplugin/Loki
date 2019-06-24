@@ -11,9 +11,9 @@ import top.sinfulxx.loki.common.UUIDUtil;
 import top.sinfulxx.loki.common.sso.BuildTokenUtil;
 import top.sinfulxx.loki.common.sso.UserContextHandler;
 import top.sinfulxx.loki.mapper.UsersMapper;
-import top.sinfulxx.loki.pojo.GithubUsersVO;
-import top.sinfulxx.loki.pojo.Users;
-import top.sinfulxx.loki.pojo.UsersExample;
+import top.sinfulxx.loki.model.entity.GithubUsersVO;
+import top.sinfulxx.loki.model.entity.Users;
+import top.sinfulxx.loki.model.entity.UsersExample;
 import top.sinfulxx.loki.service.UserService;
 
 import java.util.List;

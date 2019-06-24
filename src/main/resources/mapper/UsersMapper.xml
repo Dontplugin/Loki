@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.sinfulxx.loki.mapper.UsersMapper">
-  <resultMap id="BaseResultMap" type="top.sinfulxx.loki.pojo.Users">
+  <resultMap id="BaseResultMap" type="top.sinfulxx.loki.model.entity.Users">
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="github_id" jdbcType="INTEGER" property="githubId" />
@@ -100,7 +100,7 @@
     email, hireable, bio, public_repos, public_gists, followers, following, created_at, 
     updated_at
   </sql>
-  <select id="selectByExample" parameterType="top.sinfulxx.loki.pojo.UsersExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="top.sinfulxx.loki.model.entity.UsersExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -124,13 +124,13 @@
     delete from users
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="top.sinfulxx.loki.pojo.UsersExample">
+  <delete id="deleteByExample" parameterType="top.sinfulxx.loki.model.entity.UsersExample">
     delete from users
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="top.sinfulxx.loki.pojo.Users">
+  <insert id="insert" parameterType="top.sinfulxx.loki.model.entity.Users">
     insert into users (id, user_name, github_id, 
       node_id, avatar_url, gravatar_id, 
       url, html_url, followers_url, 
@@ -154,7 +154,7 @@
       #{publicGists,jdbcType=INTEGER}, #{followers,jdbcType=INTEGER}, #{following,jdbcType=INTEGER}, 
       #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="top.sinfulxx.loki.pojo.Users">
+  <insert id="insertSelective" parameterType="top.sinfulxx.loki.model.entity.Users">
     insert into users
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -353,7 +353,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="top.sinfulxx.loki.pojo.UsersExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="top.sinfulxx.loki.model.entity.UsersExample" resultType="java.lang.Long">
     select count(*) from users
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -501,7 +501,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="top.sinfulxx.loki.pojo.Users">
+  <update id="updateByPrimaryKeySelective" parameterType="top.sinfulxx.loki.model.entity.Users">
     update users
     <set>
       <if test="userName != null">
@@ -600,7 +600,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="top.sinfulxx.loki.pojo.Users">
+  <update id="updateByPrimaryKey" parameterType="top.sinfulxx.loki.model.entity.Users">
     update users
     set user_name = #{userName,jdbcType=VARCHAR},
       github_id = #{githubId,jdbcType=INTEGER},

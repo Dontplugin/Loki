@@ -1,6 +1,6 @@
 package top.sinfulxx.loki.service;
 
-import top.sinfulxx.loki.pojo.GithubUsersVO;
+import top.sinfulxx.loki.model.entity.GithubUsersVO;
 
 /**
  * @author hanyuzhe

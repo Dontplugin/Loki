@@ -2,8 +2,8 @@ package top.sinfulxx.loki.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import top.sinfulxx.loki.pojo.Users;
-import top.sinfulxx.loki.pojo.UsersExample;
+import top.sinfulxx.loki.model.entity.Users;
+import top.sinfulxx.loki.model.entity.UsersExample;
 
 public interface UsersMapper {
     long countByExample(UsersExample example);
