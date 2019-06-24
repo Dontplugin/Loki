@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +28,7 @@ import java.util.Map;
  * @since 1.0
  */
 @Slf4j
-@RestController
+@Controller
 @RequestMapping("/oauth")
 public class OAuthController {
 
@@ -47,7 +49,7 @@ public class OAuthController {
      * @return
      */
     @RequestMapping("/redirect")
-    public String redirect(@RequestParam("code") String code, HttpServletResponse response) {
+    public String redirect(Model model, @RequestParam("code") String code, HttpServletResponse response) {
         Map<String, String> param = new ImmutableMap.Builder<String, String>()
                 .put("client_id", clientId)
                 .put("client_secret", clientSecret)
@@ -73,6 +75,7 @@ public class OAuthController {
         Cookie c1 = new Cookie(Constant.SECURITY_TOKEN, token);
         c1.setPath("/");
         response.addCookie(c1);
+        model.addAttribute("msg", "ok");
         return "index";
     }
 }

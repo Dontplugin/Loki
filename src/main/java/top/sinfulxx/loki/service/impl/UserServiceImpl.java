@@ -5,6 +5,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import top.sinfulxx.loki.common.Constant;
+import top.sinfulxx.loki.common.RedisClient;
 import top.sinfulxx.loki.common.UUIDUtil;
 import top.sinfulxx.loki.common.sso.BuildTokenUtil;
 import top.sinfulxx.loki.common.sso.UserContextHandler;
@@ -27,6 +29,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UsersMapper usersMapper;
+    @Autowired
+    private RedisClient redisClient;
 
 
     @Override
@@ -51,7 +55,9 @@ public class UserServiceImpl implements UserService {
 
         // 注册一个登录信息，返回当前服务器的token信息
         UserContextHandler.setUser(users);
-        return BuildTokenUtil.generateSid(users.getId());
+        String token = BuildTokenUtil.generateSid(users.getId());
+        redisClient.set(token, users, Constant.TOKEN_LAST_TIME_SECONDS);
+        return token;
     }
 
 

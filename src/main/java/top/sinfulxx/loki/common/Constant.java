@@ -12,6 +12,5 @@ public class Constant {
      */
     public static final String SECURITY_TOKEN = "security_token";
     public static final String CONTEXT_KEY_USER = "user";
-    public static final String CONTEXT_KEY_USERNAME = "userName";
-    public static final String CONTEXT_KEY_USER_TOKEN = "token";
+    public static final Long TOKEN_LAST_TIME_SECONDS = 24*60*60L;
 }
